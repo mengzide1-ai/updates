@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "欢迎使用新版",
+    "content": "本次更新带来了以下新功能：\n1. 公告系统\n2. 性能优化\n3. 界面改进",
+    "priority": 30,
+    "startTime": 1700000000,
+    "endTime": 1900000000,
+    "forceShow": true,
+    "versionCode": 0,
+    "minVersionCode": 0,
+    "maxVersionCode": 0
+  },
+  {
+    "id": 2,
+    "title": "重要安全更新",
+    "content": "请尽快更新到最新版本以确保安全。",
+    "priority": 20,
+    "startTime": 1705000000,
+    "endTime": 1800000000,
+    "forceShow": true,
+    "versionCode": 0,
+    "minVersionCode": 0,
+    "maxVersionCode": 0
+  }
+]
