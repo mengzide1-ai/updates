@@ -1,0 +1,104 @@
+mobile.json 文件编写指南
+一、JSON 文件格式
+根据 Updater.java 中的解析逻辑，mobile.json 文件需要包含以下三个字段：
+
+{
+  "name": "5.1.5",
+  "code": 514,
+  "desc": "更新内容描述"
+}
+二、字段详细说明
+字段名	类型	必填	说明
+name	String	是	版本名称，显示在更新对话框标题中
+code	Integer	是	版本号（整数），用于比较版本大小
+desc	String	是	更新内容描述，显示在更新对话框中
+三、版本号规则
+重要：只有当 code 大于当前应用版本时，才会提示有新版本更新。
+
+当前应用版本：5.1.4（versionCode: 513）
+触发更新的条件：code > 513
+四、实际示例
+示例1：小版本更新
+{
+  "name": "5.1.5",
+  "code": 514,
+  "desc": "修复了播放卡顿问题，优化了界面显示"
+}
+示例2：中版本更新
+{
+  "name": "5.2.0",
+  "code": 520,
+  "desc": "新增直播功能，支持自定义播放器，修复若干bug"
+}
+示例3：大版本更新
+{
+  "name": "6.0.0",
+  "code": 600,
+  "desc": "全新界面设计，支持4K播放，新增云同步功能"
+}
+五、版本号建议
+为了便于管理，建议遵循以下版本号规则：
+
+{
+  "name": "主版本.次版本.修订号",
+  "code": 主版本 * 100 + 次版本 * 10 + 修订号
+}
+示例：
+
+5.1.4 → code: 514
+5.1.5 → code: 515
+5.2.0 → code: 520
+6.0.0 → code: 600
+10.5.12 → code: 1052
+六、多架构配置
+您需要为不同架构和模式准备对应的 JSON 文件：
+
+apk/
+├── mobile.json              # 手机版通用
+├── leanback.json            # 电视版通用
+注意：JSON 文件不需要区分架构（arm64_v8a / armeabi_v7a），只需要区分模式（mobile / leanback）。
+
+七、完整部署示例
+假设您要发布 5.1.5 版本，文件结构如下：
+
+http://tv.xn--h5qa341o.top/updates/
+└── apk/
+    ├── mobile.json
+    ├── mobile-arm64_v8a.apk
+    ├── mobile-armeabi_v7a.apk
+    ├── leanback.json
+    ├── leanback-arm64_v8a.apk
+    └── leanback-armeabi_v7a.apk
+mobile.json 内容：
+
+{
+  "name": "5.1.5",
+  "code": 514,
+  "desc": "1. 修复播放器崩溃问题\n2. 优化网络连接速度\n3. 改进用户界面体验"
+}
+leanback.json 内容：
+
+{
+  "name": "5.1.5",
+  "code": 514,
+  "desc": "1. 修复播放器崩溃问题\n2. 优化网络连接速度\n3. 改进用户界面体验\n4. 适配电视遥控器"
+}
+八、测试方法
+测试JSON访问：
+
+curl http://tv.xn--h5qa341o.top/updates/apk/mobile.json
+在应用中测试：
+
+确保 Setting.getUpdate() 返回 true
+点击设置中的版本号，触发强制更新检查
+如果 code > 513，应该显示更新对话框
+验证下载：
+
+确认 APK 文件可正常下载
+确认 APK 文件完整且可安装
+九、注意事项
+code 必须是整数，不能是字符串
+desc 支持换行，使用 \n 表示换行
+name 和 desc 建议使用中文（如果应用主要面向中文用户）
+确保 JSON 格式正确，可以使用在线 JSON 格式化工具验证
+每次发布新版本时，记得同步更新 code 值

@@ -1,0 +1,63 @@
+源码内apk更新文件的路径
+app\src\main\java\com\fongmi\android\tv\utils\Github.java
+
+自定义服务器更新源分析
+一、当前配置
+public static final String URL = "http://tv.xn--h5qa341o.top/updates";
+二、✅ 配置评估：基本正确
+优点：
+URL结构正确：使用自定义服务器，路径清晰
+路径拼接正确：通过 getUrl() 方法生成的URL格式正确
+生成的完整URL：
+JSON文件：http://tv.xn--h5qa341o.top/updates/apk/mobile.json
+APK文件：http://tv.xn--h5qa341o.top/updates/apk/mobile-arm64_v8a.apk
+三、⚠️ 需要注意的事项
+1. HTTP vs HTTPS
+当前使用 HTTP 协议（非加密）
+虽然应用已配置 android:usesCleartextTraffic="true"，可以正常访问
+建议：如果条件允许，升级到 HTTPS 以提高安全性
+2. 服务器文件结构要求
+您的服务器需要按以下结构放置文件：
+
+http://tv.xn--h5qa341o.top/updates/
+└── apk/
+    ├── mobile.json              # 手机版版本信息
+    ├── mobile-arm64_v8a.apk     # 手机版 ARM64 安装包
+    ├── mobile-armeabi_v7a.apk   # 手机版 ARM32 安装包
+    ├── leanback.json            # 电视版版本信息
+    ├── leanback-arm64_v8a.apk   # 电视版 ARM64 安装包
+    └── leanback-armeabi_v7a.apk # 电视版 ARM32 安装包
+3. JSON文件格式示例
+每个 .json 文件应包含以下内容：
+
+{
+  "name": "5.1.5",
+  "code": 514,
+  "desc": "更新内容描述"
+}
+字段说明：
+
+name：版本名称（显示给用户）
+code：版本号（必须大于当前版本513才会提示更新）
+desc：更新描述（显示给用户）
+四、测试建议
+在部署前，建议先测试URL是否可访问：
+
+# 测试JSON文件
+curl http://tv.xn--h5qa341o.top/updates/apk/mobile.json
+
+# 测试APK文件
+curl -I http://tv.xn--h5qa341o.top/updates/apk/mobile-arm64_v8a.apk
+五、总结
+项目	状态
+URL格式	✅ 正确
+路径拼接	✅ 正确
+域名编码	✅ 正常（Punycode）
+协议类型	⚠️ 建议使用HTTPS
+整体评估	✅ 可以正常工作
+配置可行，但请确保：
+
+服务器已按上述结构部署文件
+文件可正常访问（无权限限制）
+APK文件完整且可正常安装
+JSON中的 code 值大于513才会触发更新提示
