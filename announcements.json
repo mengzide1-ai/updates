@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "[官网|https://猫猫影视.cn]",
-    "content": "浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本",
+    "content": "去官网下载升级最新5.4.2版本",
     "priority": 30,
     "startTime": 1700000000,
     "endTime": 1900000000,
@@ -13,8 +13,8 @@
   },
   {
     "id": 2,
-    "title": "[尽快升级|5.2.8版本]",
-    "content": "浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本\n浏览器访问https://猫猫影视.cn 下载安装最新版本",
+    "title": "[尽快升级|5.4.2版本]",
+    "content": "去官网下载升级最新5.4.2版本",
     "priority": 20,
     "startTime": 1705000000,
     "endTime": 1800000000,
@@ -23,7 +23,6 @@
     "minVersionCode": 0,
     "maxVersionCode": 0
   }
-
 ]
 
 
